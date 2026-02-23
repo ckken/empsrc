@@ -5,6 +5,8 @@
 
 GitHub reference project manager for AI coding agents.
 
+![Demo](./demo.jpg)
+
 ## 🎯 What is this?
 
 `empsrc` helps you manage reference projects for AI coding agents. Instead of manually cloning repos, it automates:
