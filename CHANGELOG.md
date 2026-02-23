@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2026-02-23
+
+### Added
+- **TypeScript Rewrite** - Full type safety with TypeScript
+- **Bun Runtime** - Faster execution with Bun
+- **Search Command** - `empsrc search <keyword>` to search across projects
+- **Stats Command** - `empsrc stats` to view project statistics
+- **Init Command** - `empsrc init` to initialize project setup
+- **Comprehensive Tests** - 14+ test cases with Bun Test
+- **Better Error Handling** - Improved error messages and validation
+
+### Changed
+- Migrated from JavaScript to TypeScript
+- Switched from Node.js to Bun runtime
+- Updated dependencies to latest versions
+- Improved CLI output with better formatting
+
+### Technical
+- Added type definitions for all commands
+- Implemented Bun's native test runner
+- Added helper utilities for common operations
+- Improved code organization and modularity
+
 ## [0.1.0] - 2026-02-23
 
 ### Added

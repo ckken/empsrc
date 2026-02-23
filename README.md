@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/%40ckken%2Fempsrc.svg)](https://www.npmjs.com/package/@ckken/empsrc)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-GitHub reference project manager for AI coding agents.
+GitHub reference project manager for AI coding agents. Built with Bun + TypeScript.
 
 ![Demo](./demo.jpg)
 
@@ -16,6 +16,8 @@ GitHub reference project manager for AI coding agents.
 - ✅ Track versions in `refs/sources.json`
 - ✅ Auto-update `AGENTS.md` with project references
 - ✅ Auto-add `refs/` to `.gitignore`
+- ✅ Search across all reference projects
+- ✅ Statistics and insights
 
 Inspired by [opensrc](https://github.com/vercel/opensrc) but for GitHub reference projects instead of npm packages.
 
@@ -23,25 +25,49 @@ Inspired by [opensrc](https://github.com/vercel/opensrc) but for GitHub referenc
 
 ```bash
 npm install -g @ckken/empsrc
+# or
+bun install -g @ckken/empsrc
 ```
 
 ## 🚀 Quick Start
 
 ```bash
-# Add a reference project
+# Initialize in your project
+empsrc init
+
+# Add reference projects
 empsrc add vercel/next.js --category frontend
+empsrc add fastify/fastify --category backend
 
 # List all projects
 empsrc list
 
-# Update all projects
-empsrc update
+# Search for code
+empsrc search "async function"
 
-# Remove a project
-empsrc remove next.js
+# View statistics
+empsrc stats
+
+# Update projects
+empsrc update
 ```
 
 ## 📖 Commands
+
+### `empsrc init`
+
+Initialize empsrc in current directory.
+
+```bash
+empsrc init
+empsrc init --force  # Overwrite existing files
+```
+
+Creates:
+- `refs/` directory
+- `.gitignore` with `refs/` excluded
+- `AGENTS.md` with reference section
+- `refs/sources.json` for tracking
 
 ### `empsrc add <repo>`
 
@@ -77,8 +103,37 @@ empsrc list
 empsrc list --category frontend
 ```
 
-**Options:**
-- `-c, --category <category>` - Filter by category
+### `empsrc search <keyword>`
+
+Search for keyword across all reference projects.
+
+```bash
+# Search in all projects
+empsrc search "async function"
+
+# Search in specific category
+empsrc search "useState" --category frontend
+```
+
+Uses `ripgrep` if available, falls back to `grep`.
+
+### `empsrc stats`
+
+Show statistics about reference projects.
+
+```bash
+# All projects
+empsrc stats
+
+# Specific category
+empsrc stats --category frontend
+```
+
+Shows:
+- Projects by category
+- Total count
+- Recent additions
+- Recently updated
 
 ### `empsrc update [name]`
 
@@ -134,7 +189,8 @@ your-project/
       "commit": "9b6e563",
       "branch": "main",
       "description": "The React Framework",
-      "added": "2026-02-23"
+      "added": "2026-02-23",
+      "updated": "2026-02-24"
     }
   ]
 }
@@ -178,6 +234,8 @@ empsrc add fastify/fastify --category backend
 empsrc add langchain-ai/langchainjs --category ai
 
 # AI agents can now reference these implementations
+# Search for specific patterns
+empsrc search "middleware pattern"
 ```
 
 ### For Learning & Reference
@@ -186,6 +244,9 @@ empsrc add langchain-ai/langchainjs --category ai
 # Study how popular projects are structured
 empsrc add shadcn-ui/ui --category frontend
 empsrc add trpc/trpc --category backend
+
+# Search for implementation examples
+empsrc search "authentication"
 ```
 
 ### For Team Onboarding
@@ -194,6 +255,9 @@ empsrc add trpc/trpc --category backend
 # Share reference projects with your team
 empsrc add your-org/design-system --category frontend
 empsrc add your-org/api-gateway --category backend
+
+# New team members can search and learn
+empsrc search "error handling"
 ```
 
 ## 🆚 vs opensrc
@@ -204,7 +268,9 @@ empsrc add your-org/api-gateway --category backend
 | Use case | Reference projects | Dependency source code |
 | Auto-detect | Manual add | Auto from lockfile |
 | Categories | frontend/backend/ai/tools | npm/pypi/crates |
-| Update | `empsrc update` | Re-run opensrc |
+| Search | Built-in search | No search |
+| Stats | Project statistics | No stats |
+| Runtime | Bun/Node.js | Node.js |
 
 ## 🛠️ Development
 
@@ -213,14 +279,29 @@ empsrc add your-org/api-gateway --category backend
 git clone https://github.com/ckken/empsrc.git
 cd empsrc
 
-# Install dependencies
-npm install
+# Install dependencies (with Bun)
+bun install
 
-# Link for local testing
-npm link
+# Run tests
+bun test
 
-# Test
-empsrc add vercel/next.js
+# Build
+bun run build
+
+# Test locally
+bun run dist/cli.js --version
+```
+
+## 🧪 Testing
+
+Built with Bun's native test runner:
+
+```bash
+# Run all tests
+bun test
+
+# Watch mode
+bun test --watch
 ```
 
 ## 📄 License
@@ -229,10 +310,20 @@ MIT © Ken
 
 ## 🙏 Credits
 
-Inspired by [opensrc](https://github.com/vercel/opensrc) by Vercel.
+- Inspired by [opensrc](https://github.com/vercel/opensrc) by Vercel
+- Built with [Bun](https://bun.sh)
 
 ## 🔗 Links
 
 - [GitHub](https://github.com/ckken/empsrc)
 - [npm](https://www.npmjs.com/package/@ckken/empsrc)
 - [Issues](https://github.com/ckken/empsrc/issues)
+
+## 📊 What's New in v0.3.0
+
+- ✅ **Rewritten in TypeScript** - Full type safety
+- ✅ **Powered by Bun** - Faster runtime and testing
+- ✅ **Built-in Search** - Search across all reference projects
+- ✅ **Statistics** - View project insights
+- ✅ **Init Command** - Easy project setup
+- ✅ **Comprehensive Tests** - 14+ test cases with Bun Test
